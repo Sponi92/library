@@ -1,0 +1,78 @@
+{box-sizing: border-box;}
+body {
+ background-image: url("LibraryPottermore.png");
+  background-size: cover;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  text-align:center;
+background-image:url("https://www.bz-berlin.de/data/uploads/2014/08/buch_1407502046.jpg");
+background-size:cover;
+color:white;
+}
+
+#header{
+color:red;
+text-align:center;
+margin-bottom:20px;
+}
+#button1{
+text-align:center;
+}
+#newBook{
+font-size:20px;
+font-style:bold;
+background-color:#2c5567;
+width:150px;
+height:50px;
+}
+.form{
+display:block;
+margin:auto;
+margin-top:5px;
+margin-bottom:5px;
+}
+.formButton{
+display:inline-block;
+margin-top:10px;
+}
+.books{
+color:white;
+display:inline-block;
+max-width:300px;
+margin:10px;
+border:solid 2px;
+border-color:#196363;
+text-align:center;
+background-color:#2c5567;
+font-size:20px;
+opacity:0.75;
+}
+.delete{
+display:block;
+margin:auto;
+width:100px;
+margin-top:5px;
+margin-bottom:5px;
+}
+.change{
+display:block;
+margin:5px;
+width:100px;
+margin:auto;
+}
+
+
