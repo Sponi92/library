@@ -17,12 +17,13 @@ function book(title, author, pages, status){
 	this.author=author;
 	this.pages=pages;
 	this.status=status;
-	this.info =
-	title+" by "+author+", "+pages+" pages, "+status;
-	
-}
+	this.info= function info (title, author, pages, status) {
+	return title+" by "+author+", "+pages+" pages, "+status;
+	};
+	}
+
 //check if there are books stored locally and add them to the library
-function checkStorage(){
+(function (){
 	if (storedLibrary[0]===null){
 		return
 		}
@@ -34,8 +35,7 @@ function checkStorage(){
 			displayBook(library);
 		}
 	}
-}
-checkStorage();
+})();
 
 bookButton.addEventListener("click", openForm);
 
@@ -84,7 +84,8 @@ function displayBook(books) {
 	document.getElementById("div1").innerHTML="";
 	for (let i=0; i<books.length; i++){
 		newElement=document.createElement("div");
-		newElement.textContent=library[i].info;
+		newElement.textContent=	library[i].info(library[i].title,library[i].author,
+		library[i].pages,library[i].status);
 		newElement.setAttribute("data-index",i);
 		newElement.classList.add("books");
 		newButton= document.createElement("BUTTON");
@@ -128,13 +129,9 @@ function changeStatus(event) {
 	x=event.target.getAttribute("data-index");
 	if (library[x].status==="read"){
 		library[x].status="not read";
-		newBook=new book(library[x].title,library[x].author,library[x].pages,library[x].status);
-		library[x]=newBook;
 		}
 	else {
 		library[x].status="read"
-		newBook= new Book(booklibrary[x].title,library[x].author,library[x].pages,library[x].status);
-		library[x]=newBook;
 		}
 	displayBook(library);
 	}
