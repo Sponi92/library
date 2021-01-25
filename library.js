@@ -1,4 +1,5 @@
-let library=[];
+let wholeLibrary=(function(){
+	let library=[];
 storedLibrary=localStorage.getItem("storageLibrary");
 storedLibrary = JSON.parse(storedLibrary);
 const button=document.getElementById("newbook");
@@ -12,25 +13,23 @@ const submitButton=document.getElementById("submit");
 const closeButton=document.getElementById("close");
 
 // constructor to create Books
-function book(title, author, pages, status){
-	this.title=title;
-	this.author=author;
-	this.pages=pages;
-	this.status=status;
-	this.info= function info (title, author, pages, status) {
-	return title+" by "+author+", "+pages+" pages, "+status;
-	};
+function book(title, author, pages, status) {
+		this.title = title;
+		this.author = author;
+		this.pages = pages;
+		this.status = status;
+		this.info = function info(library) { return (library.title + " by " + library.author + ", " + library.pages + " pages, " + library.status)};
 	}
 
 //check if there are books stored locally and add them to the library
-(function (){
-	if (storedLibrary[0]===null){
-		return
-		}
-	else{
-		for (let i=0;i<storedLibrary.length;i++){
-			newBook = 
-			new book	(storedLibrary[i].title,storedLibrary[i].author,storedLibrary[i].pages,storedLibrary[i].status);
+(function () {
+	if (storedLibrary === null || storedLibrary[0] === null) {
+		return;
+	}
+	else {
+		for (let i = 0; i < storedLibrary.length; i++) {
+			newBook =
+				new book(storedLibrary[i].title, storedLibrary[i].author, storedLibrary[i].pages, storedLibrary[i].status);
 			addBookToLibrary(newBook);
 			displayBook(library);
 		}
@@ -42,7 +41,6 @@ bookButton.addEventListener("click", openForm);
 //display the book you entered via submitbutton
 submitButton.addEventListener("click", function() {
 	getBook();
-	console.log(bookTitle, bookAuthor, bookPages)
 	if (bookTitle==="" || bookAuthor==="" || bookPages ===""){
 		clear();
 		alert("There's something missing!")
@@ -84,8 +82,7 @@ function displayBook(books) {
 	document.getElementById("div1").innerHTML="";
 	for (let i=0; i<books.length; i++){
 		newElement=document.createElement("div");
-		newElement.textContent=	library[i].info(library[i].title,library[i].author,
-		library[i].pages,library[i].status);
+		newElement.textContent=	library[i].info(library[i])
 		newElement.setAttribute("data-index",i);
 		newElement.classList.add("books");
 		newButton= document.createElement("BUTTON");
@@ -103,6 +100,7 @@ function displayBook(books) {
 	document.querySelector('[data-index="' + i + '"]').appendChild(newStatus);
 									
 }
+// displayLength.statSetter;
 		}
 		
 function openForm() {
@@ -120,13 +118,20 @@ function clear(){
 }
 //delete a book from the library
 function deleteBook(event){
+	let x;
+	if (typeof event==="number") {
+		x=event;
+	}
+	else{
 	x=event.target.getAttribute("data-index");
+	}
 	library.splice(x,1);
 	displayBook(library);
 }
 //change the read status of a book
 function changeStatus(event) {
-	x=event.target.getAttribute("data-index");
+	let x=event.target.getAttribute("data-index");
+	
 	if (library[x].status==="read"){
 		library[x].status="not read";
 		}
@@ -140,4 +145,8 @@ function changeStatus(event) {
 window.onbeforeunload = function(){
 	localStorage.setItem('storageLibrary', JSON.stringify(library));
 }
-
+return {
+	deleteBook: deleteBook,
+	library: library.length,
+}
+})();
